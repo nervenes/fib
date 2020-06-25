@@ -38,39 +38,42 @@ All tests are run on:
 
 You can run the tests using Docker: `docker run -it drujensen/fib`
 
+For development, you can mount the current directory and run bash:
+`docker run -v `pwd`:`pwd` -w `pwd` -it drujensen/fib bash`
+
 Last benchmark was ran on June 21, 2020
 
 ## Natively compiled, statically typed
 
 | Language | Time, s | Compile | Run |
 |----------|---------|---------|-----|
-| Swift |    4.298 | swiftc -O -g fib.swift | ./fib |
-| Fortran |    4.605 | gfortran -fno-inline-small-functions -O3 -o fib fib.f03 | ./fib |
-| C |    4.760 | gcc -fno-inline-small-functions -O3 -o fib fib.c | ./fib |
-| C++ |    4.771 | g++ -fno-inline-small-functions -O3 -o fib fib.cpp | ./fib |
-| Pony |    4.796 | ponyc -s -b fib -p ./fib.pony | ./fib |
-| V |    5.067 | v -cflags -fno-inline-small-functions -prod -o fib fib.v | ./fib |
-| D |    5.078 | bash -c "ldc2 -O3 -release -flto=full -of=fib fib.d" | ./fib |
-| Nim |    5.087 | nim cpp -d:release --passC:-fno-inline-small-functions fib.nim | ./fib |
-| Cython |    5.289 | cython --embed -o fib.pyx.c fib.pyx && gcc -fno-inline-small-functions -O3 -o fib fib.pyx.c $(pkg-config --cflags --libs python) | ./fib |
-| Rust |    5.450 | rustc -C opt-level=3 -C lto=fat fib.rs | ./fib |
-| Pascal |    6.544 | fpc -O3 -Si ./fib.pas | ./fib |
-| Assembly |    7.993 | gcc -no-pie -o fib fib-gcc-x64.s | ./fib |
-| OCaml |    8.607 | ocamlopt -O3 -o fib fib.ml | ./fib |
-| Crystal |    8.945 | crystal build --release fib.cr | ./fib |
-| Go |    9.717 | go build fib.go | ./fib |
-| Lisp |   12.186 | sbcl --load fib.lisp | ./fib |
-| Haskell |   26.685 | rm ./fib.o && ghc -O3 -o fib fib.hs | ./fib |
+| Fortran |    4.626 | gfortran -fno-inline-small-functions -O3 -o fib fib.f03 | ./fib |
+| C |    4.780 | gcc -fno-inline-small-functions -O3 -o fib fib.c | ./fib |
+| C++ |    4.787 | g++ -fno-inline-small-functions -O3 -o fib fib.cpp | ./fib |
+| Pony |    4.955 | ponyc -s -b fib -p ./fib.pony | ./fib |
+| V |    5.001 | v -cflags -fno-inline-small-functions -prod -o fib fib.v | ./fib |
+| D |    5.115 | bash -c "ldc2 -O3 -release -flto=full -of=fib fib.d" | ./fib |
+| Nim |    5.135 | nim cpp -d:release --passC:-fno-inline-small-functions fib.nim | ./fib |
+| Cython |    5.279 | cython --embed -o fib.pyx.c fib.pyx && gcc -fno-inline-small-functions -O3 -o fib fib.pyx.c $(pkg-config --cflags --libs python) | ./fib |
+| Rust |    5.589 | rustc -C opt-level=3 -C lto=fat fib.rs | ./fib |
+| Pascal |    6.612 | fpc -O3 -Si ./fib.pas | ./fib |
+| Assembly |    7.974 | gcc -no-pie -o fib fib-gcc-x64.s | ./fib |
+| OCaml |    8.564 | ocamlopt -O3 -o fib fib.ml | ./fib |
+| Crystal |    8.985 | crystal build --release fib.cr | ./fib |
+| Swift |    9.531 | swiftc -Osize -g fib.swift | ./fib |
+| Go |    9.818 | go build fib.go | ./fib |
+| Lisp |   12.282 | sbcl --load fib.lisp | ./fib |
+| Haskell |   26.715 | rm ./fib.o && ghc -O3 -o fib fib.hs | ./fib |
 
 ## VM compiled bytecode, statically typed
 
 | Language | Time, s | Compile | Run |
 |----------|---------|---------|-----|
-| Java |    6.279 | javac Fib.java | java Fib |
-| Kotlin |    6.285 | kotlinc Fib.kt -include-runtime -d Fib.jar | java -jar Fib.jar |
-| C# |   11.138 | dotnet build -c Release -o ./bin | dotnet ./bin/fib.dll |
-| C# (Mono) |   12.673 | mcs Fib.cs | mono Fib.exe |
-| Erlang |   25.166 | erlc +native +'{hipe,[o3]}' fib.erl | erl -noinput -noshell -s fib |
+| Java |    6.367 | javac Fib.java | java Fib |
+| Kotlin |    6.383 | kotlinc Fib.kt -include-runtime -d Fib.jar | java -jar Fib.jar |
+| C# |   11.316 | dotnet build -c Release -o ./bin | dotnet ./bin/fib.dll |
+| C# (Mono) |   12.753 | mcs Fib.cs | mono Fib.exe |
+| Erlang |   25.204 | erlc +native +'{hipe,[o3]}' fib.erl | erl -noinput -noshell -s fib |
 
 ## VM compiled before execution, mixed/dynamically typed
 

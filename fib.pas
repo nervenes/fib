@@ -14,5 +14,11 @@ begin
 end;
 
 begin
-  WriteLn(Fib(46));
-end.
+  var arg: String;
+  var num: Integer;
+  var code: Integer;
+
+  arg := paramStr(1);
+  Val(arg, num, code);
+  WriteLn(Fib(num));
+end
